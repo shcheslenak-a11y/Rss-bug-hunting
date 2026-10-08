@@ -11,7 +11,13 @@ let currentFilter = "all";
 let nextId = 1;
 
 function addTask() {
+  console.log("s1")
+  console.log("s2s")
   const text = input.value;
+  if(text.trim() == "") {
+    errorEl.hidden = false;
+    return
+  }
   errorEl.hidden = true;
   tasks.push({ id: nextId++, text: text, done: false });
   input.value = "";
@@ -69,7 +75,7 @@ function render() {
   updateCounter();
 }
 
-addBtn.addEventListener("dblclick", addTask);
+addBtn.addEventListener("click", addTask);
 clearBtn.addEventListener("click", clearCompleted);
 
 filterButtons.forEach((btn) => {
