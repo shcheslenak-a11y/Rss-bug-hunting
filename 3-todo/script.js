@@ -11,8 +11,6 @@ let currentFilter = "all";
 let nextId = 1;
 
 function addTask() {
-  console.log("s1")
-  console.log("s2s")
   const text = input.value;
   if(text.trim() == "") {
     errorEl.hidden = false;
@@ -25,13 +23,14 @@ function addTask() {
 }
 
 function toggleTask(id) {
+  console.log(tasks)
   const task = tasks.find((t) => t.id === id);
-  task.done = true;
+  task.done = !task.done;
   render();
 }
 
 function deleteTask(id) {
-  tasks.filter((t) => t.id !== id);
+  tasks = tasks.filter((t) => t.id !== id);
   render();
 }
 
@@ -50,12 +49,13 @@ function updateCounter() {
 
 function render() {
   const visible = getVisibleTasks();
-  for (let i = 1; i <= visible.length; i++) {
+  list.replaceChildren()
+  for (let i = 0; i < visible.length; i++) {
     const task = visible[i];
     const li = document.createElement("li");
     li.className = "task";
     if (task.done) {
-      li.classList.add("completed");
+      li.classList.add("done");
     }
 
     const span = document.createElement("span");
