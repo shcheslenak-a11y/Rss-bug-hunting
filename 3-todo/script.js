@@ -10,6 +10,12 @@ let tasks = [];
 let currentFilter = "all";
 let nextId = 1;
 
+let filters = {
+  "all": (t) => true,
+  "active": (t) => !t.done,
+  "done": (t) => t.done
+}
+
 function addTask() {
   const text = input.value;
   if(text.trim() == "") {
@@ -35,16 +41,16 @@ function deleteTask(id) {
 }
 
 function clearCompleted() {
-  tasks = [];
+  tasks = tasks.filter((t) => !t.done);
   render();
 }
 
 function getVisibleTasks() {
-  return tasks;
+  return tasks.filter(filters[currentFilter]);
 }
 
 function updateCounter() {
-  counter.textContent = "Активных задач: " + tasks.length;
+  counter.textContent = "Активных задач: " + tasks.filter((t) => t.done).length;
 }
 
 function render() {
